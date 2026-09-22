@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP CALCULATOR</title>
+</head>
+<body>
+    <h1> here is your SIP CALCULATOR</h1>
+    <h2> CALCULATE YOUR INVERSTMENT IN REAL TIME</h2>
+    <form method="post" action="/finkit/sipcalculator"> 
+        
+        Enter your per month  investment amount<input type="number" placeholder="amount" name="p">
+        Enter your return rate per annum<input  type="number"="rate" name="r">
+        Enter your time of investment in years<input type="number" placeholder="time" name="t">
+        <button type="submit">Submit</button>
+    </form>
+    
+    <%if(result!==undefined){ %>
+    <div class="result">
+    <h2>RESUTLS</h2>
+    <p>Maturity Amount <%= result %> RS</p>
+    <p>Investent Time <%= investTime %> in months</p>
+    <p>Investent Amount <%=investAmt %> RS</p>
+    <p>Return on investment <%=Return%> RS</p>   
+    
+    </div>
+    <%}%>
+
+
+</body>
+</html>

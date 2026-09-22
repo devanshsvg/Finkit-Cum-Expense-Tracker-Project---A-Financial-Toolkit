@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinKit Sign Up</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="auth-page">
+        <section class="auth-card">
+            <div class="auth-header">
+                <p class="brand-label">FinKit</p>
+                <h2>Register Yourself</h2>
+                <p>Create your account and start managing your money.</p>
+            </div>
+
+            <form method="post" action="/finkit/signup" class="auth-form" id="signup-form">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input id="signup-name" type="text" required name="name" placeholder="Enter your full name">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input id="signup-email" type="text" required name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-password">Create Password</label>
+                    <input id="signup-password" type="password" required name="pass" placeholder="Create a password">
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-age">Age</label>
+                    <input id="signup-age" type="number" required name="age" placeholder="Enter your age">
+                </div>
+
+                <button type="submit" class="primary-btn">Register</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

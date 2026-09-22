@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="calculator-page">
+        <section class="calculator-card">
+            <div class="calculator-header">
+                <h1>EMI Calculator</h1>
+                <p>Calculate your loan repayment and interest.</p>
+            </div>
+
+            <form method="POST" action="/finkit/emicalculator" class="calculator-form" id="emi-form">
+                <div class="form-group">
+                    <label for="loan-amount">Loan Amount</label>
+                    <input id="loan-amount" type="number" required name="p" placeholder="Enter loan amount">
+                </div>
+
+                <div class="form-group">
+                    <label for="interest-rate">Rate of Interest (%)</label>
+                    <input id="interest-rate" type="number" required name="r" placeholder="Enter interest rate">
+                </div>
+
+                <div class="form-group">
+                    <label for="loan-time">Time of Investment (years)</label>
+                    <input id="loan-time" type="number" required name="t" placeholder="Enter time">
+                </div>
+
+                <button type="submit" class="primary-btn">Calculate EMI</button>
+            </form>
+
+            <%if (result!==null){ %>
+            <section class="result-card" id="emi-result">
+                <h2>Result</h2>
+                <div class="result-row">
+                    <span>EMI</span>
+                    <strong><%=result%></strong>
+                </div>
+                <div class="result-row">
+                    <span>Interest Paid</span>
+                    <strong><%=interestPaid%></strong>
+                </div>
+                <div class="result-row">
+                    <span>Total Amount Paid</span>
+                    <strong><%=totalAmt%></strong>
+                </div>
+            </section>
+            <%} %>
+        </section>
+    </main>
+</body>
+</html>

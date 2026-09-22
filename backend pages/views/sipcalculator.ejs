@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Calculator</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="calculator-page">
+        <section class="calculator-card">
+            <div class="calculator-header">
+                <h1>Here is Your SIP Calculator</h1>
+                <p>Calculate your investment growth in real time.</p>
+            </div>
+
+            <form method="post" action="/finkit/sipcalculator" class="calculator-form" id="sip-form">
+                <div class="form-group">
+                    <label for="sip-amount">Per Month Investment Amount</label>
+                    <input id="sip-amount" type="number" placeholder="Enter amount" name="p">
+                </div>
+
+                <div class="form-group">
+                    <label for="sip-rate">Return Rate Per Annum (%)</label>
+                    <input id="sip-rate" type="number" placeholder="Enter return rate" name="r">
+                </div>
+
+                <div class="form-group">
+                    <label for="sip-time">Time of Investment (years)</label>
+                    <input id="sip-time" type="number" placeholder="Enter time" name="t">
+                </div>
+
+                <button type="submit" class="primary-btn">Calculate SIP</button>
+            </form>
+
+            <%if(result!==undefined){ %>
+            <section class="result-card" id="sip-result">
+                <h2>Results</h2>
+                <div class="result-row">
+                    <span>Maturity Amount</span>
+                    <strong><%= result %> RS</strong>
+                </div>
+                <div class="result-row">
+                    <span>Investment Time</span>
+                    <strong><%= investTime %> months</strong>
+                </div>
+                <div class="result-row">
+                    <span>Investment Amount</span>
+                    <strong><%=investAmt %> RS</strong>
+                </div>
+                <div class="result-row">
+                    <span>Return on Investment</span>
+                    <strong><%=Return%> RS</strong>
+                </div>
+            </section>
+            <%}%>
+        </section>
+    </main>
+</body>
+</html>

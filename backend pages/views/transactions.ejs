@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinKit Transactions</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <main class="transactions-page">
+
+        <header class="transactions-header">
+            <div>
+                <p class="brand-label">FinKit</p>
+                <h1>Transactions</h1>
+            </div>
+            <nav class="page-nav" id="transactions-nav">
+                <a href="/finkit/dashboard" class="nav-link">Dashboard</a>
+                <a href="/finkit/logout" class="logout-btn">Log Out</a>
+            </nav>
+        </header>
+
+        <section class="summary-cards" id="transaction-summary">
+            <div class="summary-card income-summary">
+                <span class="summary-label">Income</span>
+                <strong><%=income%></strong>
+            </div>
+            <div class="summary-card expense-summary">
+                <span class="summary-label">Expenses</span>
+                <strong><%=expense%></strong>
+            </div>
+            <div class="summary-card balance-summary">
+                <span class="summary-label">Balance</span>
+                <strong><%=balance%></strong>
+            </div>
+        </section>
+
+        <section class="transaction-form-section" id="add-transaction-section">
+            <div class="section-heading">
+                <h2>Add Transaction</h2>
+                <p>Record your income or expenses.</p>
+            </div>
+
+            <form method="post" action="/finkit/transactions" class="transaction-form" id="transaction-form">
+                <div class="form-group">
+                    <label for="transaction-type">Type</label>
+                    <select id="transaction-type" name="type">
+                        <option>Select</option>
+                        <option value="Income">Income</option>
+                        <option value="Expense">Expense</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-amount">Amount</label>
+                    <input id="transaction-amount" name="amount" type="number" placeholder="Enter amount">
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-category">Category</label>
+                    <select id="transaction-category" name="category">
+                        <option value="Rent">Rent</option>
+                        <option value="Groceries">Groceries</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Travel">Travel</option>
+                        <option value="DineOut">DineOut</option>
+                        <option value="Others">Others</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-date">Date</label>
+                    <input id="transaction-date" name="date" type="date">
+                </div>
+
+                <div class="form-group">
+                    <label for="transaction-description">Description</label>
+                    <input id="transaction-description" name="description" type="text" placeholder="Description">
+                </div>
+
+                <button type="submit" class="primary-btn">Add Transaction</button>
+            </form>
+        </section>
+
+        <section class="transaction-list-section" id="transaction-list">
+            <div class="section-heading transaction-list-heading">
+                <div>
+                    <h2>Transactions</h2>
+                    <p>View, edit, or delete your transactions.</p>
+                </div>
+
+                <form action="/finkit/transaction-filter" method="post" class="filter-form" id="transaction-filter">
+                    <label for="filter-date">Filter by date</label>
+                    <input id="filter-date" type="date" name="date">
+                    <button type="submit" class="secondary-btn">Search</button>
+                </form>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="transactions-table" id="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% transactions.forEach(transaction=>{ %>
+                            <% id=transaction.id %>
+                            <tr class="transaction-row">
+                                <td><%=transaction.type%></td>
+                                <td><%=transaction.category || "-" %></td>
+                                <td><%=transaction.amount%></td>
+                                <td><%=transaction.description%></td>
+                                <td><%=new Date(transaction.transaction_date).toLocaleDateString('en-GB')%></td>
+                                <td class="table-actions">
+                                    <button type="button" class="edit-btn" onclick="showEdit('<%=transaction.id%>')">EDIT</button>
+
+                                    <form method="post" action="/finkit/delete-transaction" class="inline-form">
+                                        <input type="hidden" name="transactionId" value="<%=transaction.id%>">
+                                        <button type="submit" class="delete-btn">DELETE</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <!-- Hidden edit form -->
+                            <tr id="edit-<%=transaction.id %>" class="edit-row" style="display:none;">
+                                <td colspan="6">
+                                    <form method="post" action="/finkit/edit-transaction" class="edit-form">
+                                        <h2>Edit Transaction</h2>
+                                        <input type="hidden" value="<%=transaction.id %>" name="transactionId">
+
+                                        <div class="edit-grid">
+                                            <div class="form-group">
+                                                <label>Type</label>
+                                                <select name="type" value="<%=transaction.type%>">
+                                                    <option value="income">Income</option>
+                                                    <option value="expense">Expense</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input name="amount" type="number" value="<%=transaction.amount%>">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Category</label>
+                                                <select name="category" value="<%=transaction.category%>">
+                                                    <option value="Rent">Rent</option>
+                                                    <option value="Groceries">Groceries</option>
+                                                    <option value="Entertainment">Entertainment</option>
+                                                    <option value="Travel">Travel</option>
+                                                    <option value="DineOut">DineOut</option>
+                                                    <option value="Others">Others</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Date</label>
+                                                <input name="date" type="date" value="<%=transaction.date%>">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Description</label>
+                                                <input name="description" type="text" value="<%=transaction.description%>">
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="primary-btn">Save Changes</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="chart-section" id="transaction-chart-section">
+            <div class="chart-header">
+                <h2>Expense Breakdown</h2>
+                <p>See your spending by category.</p>
+            </div>
+            <div class="pie-chart" id="pie-chart">
+                <canvas id="myChart"></canvas>
+            </div>
+        </section>
+
+        <script>
+            function showEdit(id){
+                let form=document.getElementById("edit-" + id);
+                if(form.style.display=== "none"){
+                    form.style.display = "table-row";
+                }
+            }
+        </script>
+
+        <script type="application/json" id="graph-data"><%- JSON.stringify(graphData) %></script>
+    </main>
+</body>
+</html>

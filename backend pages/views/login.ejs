@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <main class="auth-page">
+        <section class="auth-card">
+            <div class="auth-header">
+                <p class="brand-label">FinKit</p>
+                <h2>Welcome Back</h2>
+                <p>Login to manage your finances.</p>
+            </div>
+
+            <form method="post" action="/finkit/login" class="auth-form" id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input id="login-email" type="text" required name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input id="login-password" type="password" required name="pass" placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

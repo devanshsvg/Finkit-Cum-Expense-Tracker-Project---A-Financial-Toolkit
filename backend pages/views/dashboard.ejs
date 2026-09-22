@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <main class="dashboard-page">
+
+        <header class="dashboard-header">
+            <div class="dashboard-heading">
+                <h2 id="dashboard-title">Your Dashboard</h2>
+                <p id="dashboard-subtitle">Track your money, watch your progress</p>
+            </div>
+
+            <a href="/finkit/logout" class="logout-btn" id="logout-btn">Log Out</a>
+        </header>
+
+        <section class="dashboard-cards" id="dashboard-cards">
+            <div class="dashboard-card balance-card" id="balance-card">
+                <p class="card-label">Balance</p>
+                <p class="card-value"><%=balance%></p>
+            </div>
+
+            <div class="dashboard-card income-card" id="income-card">
+                <p class="card-label">Income</p>
+                <p class="card-value"><%=income%></p>
+            </div>
+
+            <div class="dashboard-card expense-card" id="expense-card">
+                <p class="card-label">Expenses</p>
+                <p class="card-value"><%=expense%></p>
+            </div>
+        </section>
+
+        <nav class="dashboard-nav" id="dashboard-nav">
+            <a href="/finkit/transactions" class="transactions-link" id="transactions-link">
+                View Transactions
+            </a>
+        </nav>
+
+        <section class="chart-section" id="expense-chart-section">
+            <div class="chart-header">
+                <h3>Expense Breakdown</h3>
+                <p>See how your expenses are distributed by category.</p>
+            </div>
+
+            <div class="pie-chart" id="pie-chart">
+                <canvas id="myChart"></canvas>
+            </div>
+        </section>
+
+        <script type="application/json" id="graph-data"><%- JSON.stringify(graphData) %></script>
+
+    </main>
+</body>
+</html>
